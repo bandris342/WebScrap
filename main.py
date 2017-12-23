@@ -2,5 +2,5 @@ import requests
 from lxml import html
 pagestring = requests.get('https://twitter.com/emmanuelmacron')
 htmlpage = html.fromstring(pagestring.content)
-followers = htmlpage.xpath("//@data-count")
-print(followers[2])
+followers = int(htmlpage.xpath("//li[@class='ProfileNav-item ProfileNav-item--followers']//@data-count")[0])
+print(followers)
