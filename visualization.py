@@ -7,7 +7,6 @@ except:
     sys.exit(1)
 
 cur = conn.cursor()
-
 cur.execute("SELECT * FROM followers ORDER BY time")
 data=cur.fetchall()
 
