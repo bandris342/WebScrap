@@ -1,4 +1,9 @@
 # Web-scraping exercise for AF
-## Using a Twitter account
-## Loop until keyboard interruption
-## Save data to a local PostgreSQL Table
+
+## main.py
+### Using a Twitter account
+### Loop until keyboard interruption
+### Save data to a local PostgreSQL Table
+
+## visualization.oy
+### Read saved data from the Database
