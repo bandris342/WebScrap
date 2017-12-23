@@ -5,5 +5,5 @@
 ### Loop until keyboard interruption
 ### Save data to a local PostgreSQL Table
 
-## visualization.oy
+## visualization.py
 ### Read saved data from the Database
