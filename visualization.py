@@ -17,7 +17,8 @@ except:
     print("Followers table not exists!")
     sys.exit(1)
 
-cur.execute("SELECT * FROM followers ORDER BY time")
+CurrTime = int(time.time())
+cur.execute("SELECT * FROM followers WHERE time > %s", (CurrTime-60,))
 data=cur.fetchall()
 
 for row in data:
