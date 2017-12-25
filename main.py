@@ -5,7 +5,8 @@ def connectdb():
     global conn, cur
     #try to connect to the database
     try:
-        conn = psycopg2.connect("dbname='WebScrap' user='postgres' host='localhost' password='kortefa'")
+#       conn = psycopg2.connect("dbname='WebScrap' user='postgres' host='localhost' password='kortefa'")
+        conn = psycopg2.connect("dbname='tnrgoyky' user='tnrgoyky' host='horton.elephantsql.com' password='CQ4Wn1y2KRxe-A3FtA5aiYiwf-jvmgRo'")
     except:
         print("I am unable to connect to the database!")
         sys.exit(1)
