@@ -18,7 +18,7 @@ except:
     sys.exit(1)
 
 CurrTime = int(time.time())
-cur.execute("SELECT * FROM followers WHERE time > %s", (CurrTime-60,))
+cur.execute("SELECT * FROM followers WHERE time > %s ORDER BY time", (CurrTime-60,))
 data=cur.fetchall()
 
 for row in data:
