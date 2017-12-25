@@ -1,5 +1,6 @@
-import psycopg2, time
+import psycopg2, time, sys
 
+#try to connect to the database
 try:
     conn = psycopg2.connect("dbname='WebScrap' user='postgres' host='localhost' password='kortefa'")
 except:
@@ -7,6 +8,14 @@ except:
     sys.exit(1)
 
 cur = conn.cursor()
+
+#check if table exists, if not create it
+try:
+    cur.execute("SELECT EXISTS (SELECT * FROM followers)")
+except:
+    print("Followers table not exists!")
+    sys.exit(1)
+
 cur.execute("SELECT * FROM followers ORDER BY time")
 data=cur.fetchall()
 
