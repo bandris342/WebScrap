@@ -15,13 +15,7 @@ def connectdb():
 connectdb()
 
 #check if table exists, if not, create it
-try:
-    cur.execute("SELECT EXISTS (SELECT * FROM followers)")
-except:
-    connectdb()
-    cur.execute("CREATE TABLE followers (time integer PRIMARY KEY, count integer);")
-    print("Followers table has been created")
-    conn.commit();
+cur.execute("CREATE TABLE IF NOT EXISTS followers (time integer PRIMARY KEY, count integer);")
 
 try:
     while True:
