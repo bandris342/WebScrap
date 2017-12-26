@@ -52,9 +52,9 @@ for row in result:
    data.append(int(row[1]))
    xTickMarks.append(time.strftime("%D %H:%M:%S", time.localtime(row[0])))
 
-# necessary variables
-ind = numpy.arange(len(data))     # the x locations for XTickers
-width = 0.35                      # the width of the bars
+#necessary variables
+ind = numpy.arange(len(data))     #the x locations for XTickers
+width = 0.35                      #the width of the bars
 
 #plot the bars
 ax.bar(ind, data, width, color='black')

@@ -9,4 +9,4 @@
 
 ## visualization.py
 ### Get saved data from the Database in the Cloud
-### Select data from the last minute
+### Plot data from the last minutes using PyPlot
