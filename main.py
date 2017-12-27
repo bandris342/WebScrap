@@ -1,21 +1,21 @@
-import requests, time, psycopg2, sys
+import requests, time, sys
+from sqlalchemy import create_engine
 from lxml import html
 
-def connectdb():
-    global conn, cur
-    #try to connect to the database
-    try:
-#       conn = psycopg2.connect("dbname='WebScrap' user='postgres' host='localhost' password='kortefa'")
-        conn = psycopg2.connect("dbname='tnrgoyky' user='tnrgoyky' host='horton.elephantsql.com' password='CQ4Wn1y2KRxe-A3FtA5aiYiwf-jvmgRo'")
-    except:
-        print("I am unable to connect to the database!")
-        sys.exit(1)
-    cur = conn.cursor()
 
-connectdb()
+#db_string = "postgres://tnrgoyky:CQ4Wn1y2KRxe-A3FtA5aiYiwf-jvmgRo@horton.elephantsql.com:5432/tnrgoyky"
+db_string = "postgres://postgres:kortefa@localhost:5432/WebScrap"
+
+#try to connect to the database
+try:
+    db = create_engine(db_string)
+except:
+    print("I am unable to connect to the database!")
+    sys.exit(1)
+
 
 #check if table exists, if not, create it
-cur.execute("CREATE TABLE IF NOT EXISTS followers (time integer PRIMARY KEY, count integer);")
+db.execute("CREATE TABLE IF NOT EXISTS followers (time integer PRIMARY KEY, count integer);")
 
 try:
     while True:
@@ -23,11 +23,8 @@ try:
         CurrTime=int(time.time())
         htmlpage = html.fromstring(pagestring.content)
         followers = int(htmlpage.xpath("//li[@class='ProfileNav-item ProfileNav-item--followers']//@data-count")[0])
-        cur.execute("INSERT INTO followers (time, count) VALUES (%s, %s);", (CurrTime, followers))
-        conn.commit()
+        db.execute("INSERT INTO followers (time, count) VALUES (%s, %s);", (CurrTime, followers))
         print(time.ctime(CurrTime), followers)
         time.sleep(2)
 except KeyboardInterrupt:
-    cur.close()
-    conn.close()
     pass

@@ -1,46 +1,42 @@
-import psycopg2, time, sys
+import time, sys
+from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 import numpy
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
+#db_string = "postgres://tnrgoyky:CQ4Wn1y2KRxe-A3FtA5aiYiwf-jvmgRo@horton.elephantsql.com:5432/tnrgoyky"
+db_string = "postgres://postgres:kortefa@localhost:5432/WebScrap"
 
 #try to connect to the database
 try:
-#   conn = psycopg2.connect("dbname='WebScrap' user='postgres' host='localhost' password='kortefa'")
-    conn = psycopg2.connect("dbname='tnrgoyky' user='tnrgoyky' host='horton.elephantsql.com' password='CQ4Wn1y2KRxe-A3FtA5aiYiwf-jvmgRo'")
+    db = create_engine(db_string)
 except:
     print("I am unable to connect to the database!")
     sys.exit(1)
 
-cur = conn.cursor()
+
 
 #check if table exists, if not create it
 try:
-    cur.execute("SELECT EXISTS (SELECT * FROM followers)")
+    db.execute("SELECT EXISTS (SELECT * FROM followers)")
 except:
     print("Followers table not exists!")
     sys.exit(1)
 
-cur.execute("SELECT COUNT(*) FROM followers;")
-NbRows=cur.fetchone()
+NbRows=db.execute("SELECT COUNT(*) FROM followers;").fetchone()
 
-cur.execute("SELECT time FROM followers ORDER BY time ASC LIMIT 1")
-FirstTime=cur.fetchone()
+FirstTime=db.execute("SELECT time FROM followers ORDER BY time ASC LIMIT 1").fetchone()
 
-cur.execute("SELECT time FROM followers ORDER BY time DESC LIMIT 1")
-LastTime=cur.fetchone()
+LastTime=db.execute("SELECT time FROM followers ORDER BY time DESC LIMIT 1").fetchone()
 
 print("There are %d rows in the database. Data have been collected between %s and %s" % (NbRows[0], time.ctime(FirstTime[0]), time.ctime(LastTime[0])))
+print(NbRows)
 
 Tback=int(input("Give me a time in minutes (dTime) to visualize data collected between T-dTime and T:"))*60
 
-cur.execute("SELECT * FROM followers WHERE time > %s ORDER BY time", [LastTime[0] - Tback])
-result=cur.fetchall()
-
-cur.close()
-conn.close()
+result=db.execute("SELECT * FROM followers WHERE time > %s ORDER BY time", LastTime[0] - Tback).fetchall()
 
 
 #Data plot

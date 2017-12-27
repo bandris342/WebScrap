@@ -1,10 +1,10 @@
 # Web-scraping exercise for AF
-# Using PSYCOPG2
+# Using SQLAlchemy
 
 ## main.py
 ### Using a Twitter account
 ### Loop until keyboard interruption
-### Save data into a Cloud (ElephantSQL)
+### Save data into a Cloud (ElephantSQL) or local server
 ### Create table if not exists
 
 ## visualization.py
