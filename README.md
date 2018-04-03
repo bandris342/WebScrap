@@ -1,12 +1,12 @@
 # Web-scraping exercise for AF
-# Using PSYCOPG2
+Using PSYCOPG2
 
 ## main.py
-### Using a Twitter account
-### Loop until keyboard interruption
-### Save data into a Cloud (ElephantSQL)
-### Create table if not exists
+- Using a Twitter account
+- Loop until keyboard interruption
+- Save data into a Cloud (ElephantSQL)
+- Create table if not exists
 
 ## visualization.py
-### Get saved data from the Database in the Cloud
-### Plot data from the last minutes using PyPlot
+- Get saved data from the Database in the Cloud
+- Plot data from the last minutes using PyPlot
